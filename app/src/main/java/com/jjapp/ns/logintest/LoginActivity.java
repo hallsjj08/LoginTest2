@@ -20,6 +20,7 @@ import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
 
+    //Tag for Logs during debugging.
     final private static String TAG = "ANDROID SUCKS";
 
 
@@ -28,13 +29,20 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
+        //Variables for userID, password, and the Login/Register Buttons.
         final EditText etRacfID = (EditText) findViewById(R.id.etLogRac);
         final EditText etPword = (EditText) findViewById(R.id.etLogPass);
         Button bRegister = (Button) findViewById(R.id.bRegister);
         Button bLogin = (Button) findViewById(R.id.bLogin);
 
+        //Debug Log
         Log.d(TAG, "Button Created");
 
+        /*
+        Action performed whe the Login button is clicked. The userID and password are formatted to a
+        string and a response listener is created. These parameters are used in the LoginRequest Class.
+         */
         bLogin.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -42,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
                 final String racfID = etRacfID.getText().toString();
                 final String password = etPword.getText().toString();
 
+                //An object created to listen for a successful response from the server.
                 Response.Listener<String> responseListener = new Response.Listener<String>(){
                     @Override
                     public void onResponse(String response){
@@ -50,6 +59,10 @@ public class LoginActivity extends AppCompatActivity {
                             JSONObject jsonResponse = new JSONObject(response);
                             boolean success = jsonResponse.getBoolean("success");
 
+                            /*
+                            A short message will display welcoming the user if the login was successful.
+                            Later this will be used to take the user to the locomotives in progress screen.
+                             */
                             if(success){
 
                                 String rac = jsonResponse.getString("racfID");
@@ -60,6 +73,10 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast toast = Toast.makeText(context, text, duration);
                                 toast.show();
 
+                                /*
+                                Else statement to handle failed login attempts. Will need to incorporate
+                                limited login attempts and be able to handle screen changes.
+                                 */
                             }else{
                                 AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                                 builder.setMessage("Login Failed").setNegativeButton("Retry", null).create().show();
@@ -71,12 +88,18 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 };
 
+                /*
+                Login request object is created. The object is added to the network transaction queue
+                and executed using the Volley library. Volley currently works with
+                Android 2.2 and higher.
+                 */
                 LoginRequest login = new LoginRequest(racfID, password, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
                 queue.add(login);
             }
         });
 
+        //Action performed when the register button is pressed. It takes the user to a RegisterActivity Screen.
         bRegister.setOnClickListener(new View.OnClickListener(){
 
             @Override
