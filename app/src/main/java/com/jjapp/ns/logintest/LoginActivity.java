@@ -20,7 +20,7 @@ import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
 
-    //Tag for Logs during debugging.
+    //Tag for Logs during debugging.....................................................
     final private static String TAG = "ANDROID SUCKS";
 
 
