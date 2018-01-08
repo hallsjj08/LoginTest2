@@ -23,6 +23,9 @@ public class LoginActivity extends AppCompatActivity {
     //Tag for Logs during debugging.
     final private static String TAG = "ANDROID SUCKS";
 
+//    ...
+//    ..
+//    .
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
