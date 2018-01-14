@@ -24,9 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     final private static String TAG = "ANDROID SUCKS";
 
 //    ...
-//    ..
-//    .
-
+//push test
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
